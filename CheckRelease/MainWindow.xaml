@@ -1,8 +1,28 @@
 ﻿<Window x:Class="CheckRelease.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525" AllowDrop="True" Drop="DropTarget">
+        xmlns:local="clr-namespace:CheckRelease"
+        Title="Check Release" Height="350" Width="525" AllowDrop="True" Drop="DropTarget" MinWidth="300" MinHeight="200">
     <Grid>
+        <ListView x:Name="Results" Visibility="Collapsed">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Clear all" Click="MenuItem_Click"></MenuItem>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView AllowsColumnReorder="false">
+                    <GridViewColumn Header="Release">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox IsChecked="{Binding IsRelease}" IsHitTestVisible="False" Focusable="False"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn DisplayMemberBinding="{Binding AssemblyName}" Header="Assembly Name"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
         <TextBlock Name="Info" Text="Drop here your assemblies." HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="14"></TextBlock>
     </Grid>
 </Window>

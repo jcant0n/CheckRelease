@@ -31,6 +31,9 @@ namespace CheckRelease
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
+                this.Info.Visibility = System.Windows.Visibility.Collapsed;
+                this.Results.Visibility = System.Windows.Visibility.Visible;
+
                 string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
 
                 foreach (var file in files)
@@ -38,16 +41,12 @@ namespace CheckRelease
                     try
                     {
                         var assembly = Assembly.LoadFile(file);
-                        System.Diagnostics.Debug.WriteLine(assembly.FullName);
+                        var name = assembly.FullName.Split(',')[0]; 
 
-                        if (IsRelease(assembly))
-                        {
-                            System.Diagnostics.Debug.WriteLine("OK");
-                        }
-                        else
-                        {
-                            System.Diagnostics.Debug.WriteLine("DEBUG");
-                        }
+                        bool isRelease = IsRelease(assembly);
+                        Item newItem = new Item() { AssemblyName = name, IsRelease = isRelease };
+
+                        this.Results.Items.Add(newItem);
                     }
                     catch (Exception)
                     {
@@ -88,6 +87,14 @@ namespace CheckRelease
             }
 
             return false;
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            this.Results.Items.Clear();
+            this.Info.Visibility = System.Windows.Visibility.Visible;
+            this.Results.Visibility = System.Windows.Visibility.Collapsed;
+
         }
     }
 }
