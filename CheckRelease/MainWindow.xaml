@@ -19,7 +19,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn DisplayMemberBinding="{Binding AssemblyName}" Header="Assembly Name"/>
+                    <GridViewColumn Width="300" DisplayMemberBinding="{Binding AssemblyName}" Header="Assembly Name"/>
                 </GridView>
             </ListView.View>
         </ListView>

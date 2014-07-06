@@ -41,7 +41,8 @@ namespace CheckRelease
                     try
                     {
                         var assembly = Assembly.LoadFile(file);
-                        var name = assembly.FullName.Split(',')[0]; 
+
+                        var name = assembly.FullName.Split(',')[0];
 
                         bool isRelease = IsRelease(assembly);
                         Item newItem = new Item() { AssemblyName = name, IsRelease = isRelease };
